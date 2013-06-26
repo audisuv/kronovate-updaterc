@@ -3,6 +3,8 @@ package com.kronos.updater.mqtt;
 import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.QoS;
 
+import com.kronos.updater.mqtt.inf.IGenericClient;
+
 public class MQTTTestClient {
 
 	public MQTTTestClient() {
@@ -20,7 +22,8 @@ public class MQTTTestClient {
 		String topic="foo";
 		QoS QOSlevel=QoS.AT_LEAST_ONCE;
         sc.subscribe(connection, topic, QOSlevel);
-        sc.recieve(connection);
+        IGenericClient gc=new AdminClient();
+        sc.recieve(connection,gc);
        // disconnect(connection);
         
 		
