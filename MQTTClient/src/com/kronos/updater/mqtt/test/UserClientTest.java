@@ -24,10 +24,8 @@ public class UserClientTest {
 	public static void main(String[] args) throws Exception {
 		System.out.println(getIpAddress());
 		UserClient uc= new UserClient();
-		BlockingConnection bc=uc.getConnection("userClient"+getIpAddress());
+		BlockingConnection bc=uc.getConnection("user_"+getIpAddress());
 		uc.listenIdentify(bc);
-	//	uc.replyIdentify(bc);
-
 	}
 
 	private static String getIpAddress() throws SocketException {

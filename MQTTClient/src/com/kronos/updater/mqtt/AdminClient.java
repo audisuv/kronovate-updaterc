@@ -1,8 +1,9 @@
 package com.kronos.updater.mqtt;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.Message;
@@ -18,7 +19,14 @@ import com.kronos.updater.mqtt.inf.ISubClient;
  * 
  */
 public class AdminClient extends GenericClient implements IAdminClient {
-	private List<UserDetails> userList = new ArrayList<UserDetails>();
+	private Map<String,UserDetails> userMap = new HashMap<String,UserDetails>();
+
+	/**
+	 * @return the userMap
+	 */
+	public final Map<String, UserDetails> getUserMap() {
+		return userMap;
+	}
 
 	/**
 	 * 
@@ -63,23 +71,19 @@ public class AdminClient extends GenericClient implements IAdminClient {
 	@Override
 	public void update(Message message) {
 		// handle it accordingly.
-		System.out.println(new String(message.getPayload()));
+		if (message.getTopic().equals("identify_reply")) {
+			String str=new String(message.getPayload());
+			System.out.println(new String(message.getPayload()));
+			UserDetails ud= new UserDetails();
+			ud.setClientId(str);
+			ud.setConnected(true);
+			ud.setIpAddress(str.split("_")[1]);
+			this.getUserMap().put(str, ud);
+			System.out.println(this.getUserMap());
+		}
 	}
 
-	/**
-	 * @return the userList
-	 */
-	public List<UserDetails> getUserList() {
-		return userList;
-	}
 
-	/**
-	 * @param userList
-	 *            the userList to set
-	 */
-	public void setUserList(List<UserDetails> userList) {
-		this.userList = userList;
-	}
 
 	@Override
 	public void updateIdentifyList(List<UserDetails> list) {
