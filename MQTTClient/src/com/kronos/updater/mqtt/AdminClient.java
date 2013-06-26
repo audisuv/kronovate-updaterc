@@ -24,7 +24,7 @@ public class AdminClient extends GenericClient implements IAdminClient {
 	 * 
 	 */
 	public AdminClient() {
-
+		super();
 	}
 
 	/**
@@ -63,6 +63,7 @@ public class AdminClient extends GenericClient implements IAdminClient {
 	@Override
 	public void update(Message message) {
 		// handle it accordingly.
+		System.out.println(new String(message.getPayload()));
 	}
 
 	/**

@@ -7,6 +7,10 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+import org.fusesource.mqtt.client.BlockingConnection;
+
+import com.kronos.updater.mqtt.UserClient;
+
 public class UserClientTest {
 
 	public UserClientTest() {
@@ -15,10 +19,14 @@ public class UserClientTest {
 
 	/**
 	 * @param args
-	 * @throws SocketException 
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws SocketException {
+	public static void main(String[] args) throws Exception {
 		System.out.println(getIpAddress());
+		UserClient uc= new UserClient();
+		BlockingConnection bc=uc.getConnection("userClient"+getIpAddress());
+		uc.listenIdentify(bc);
+	//	uc.replyIdentify(bc);
 
 	}
 

@@ -38,7 +38,6 @@ public class SubscriberClient extends GenericClient implements ISubClient{
 	public void recieve(BlockingConnection connection, IGenericClient gc) throws Exception {
 		while(true){
 	        Message message = connection.receive();
-	        System.out.println(new String(message.getPayload()));
 	        gc.update(message);
 	        // To let the server know that it has been processed.
 	        message.ack();

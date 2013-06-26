@@ -35,6 +35,7 @@ public class GenericClient implements IGenericClient{
 		MQTT mqtt = new MQTT();
 		try {
 			mqtt.setHost(ip, port);
+			this.mqtt=mqtt;
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +45,7 @@ public class GenericClient implements IGenericClient{
 
 	public  int port = 1883;
 //	public  String ip = "10.131.21.242";
-	public  String ip = "10.30.103.217";
+	public  String ip = "10.131.22.29";
 	
 	/**
 	 * @param args
@@ -79,7 +80,8 @@ public class GenericClient implements IGenericClient{
 	
 	public  BlockingConnection getConnection(String ip, int port, String str)
 			throws URISyntaxException, Exception {
-		this.setClientId(str+Math.random());
+//		this.setClientId(str+Math.random());
+		this.setClientId(str);
 		BlockingConnection connection = mqtt.blockingConnection();
 		connection.connect();
 		addToConnectionList(connection);
