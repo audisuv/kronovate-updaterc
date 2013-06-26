@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/hawtbuf-1.9.jar" sourcepath="C:/Users/nishant.awasthi/.m2/repository/org/fusesource/hawtbuf/hawtbuf/1.9/hawtbuf-1.9-sources.jar"/>
+	<classpathentry kind="lib" path="lib/mqtt-client-1.4.jar" sourcepath="C:/Users/nishant.awasthi/.m2/repository/org/fusesource/mqtt-client/mqtt-client/1.4/mqtt-client-1.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-transport-1.12.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
