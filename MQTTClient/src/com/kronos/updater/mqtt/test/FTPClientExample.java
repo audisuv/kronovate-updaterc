@@ -25,6 +25,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
@@ -75,44 +76,35 @@ public final class FTPClientExample {
 	boolean localActive = false, useEpsvWithIPv4 = false, feat = false,
 			printHash = false, mlst = false, mlsd = false, lenient = false;
 	String doCommand = null;
-	String username = null;
-	String password = null;
 	long keepAliveTimeout = -1;
 	int controlKeepAliveReplyTimeout = -1;
 	String protocol, proxyUser, proxyPassword, proxyHost, trustmgr;
+	String username,password;
 	int proxyPort;
 
-	public static void main(String[] a) throws UnknownHostException {
-		new FTPClientExample().FTPConnection();
-	}
 
-	public void FTPConnection() throws UnknownHostException {
+	public void FTPConnection( List<String> value, String... args) throws UnknownHostException {
 
-		int base = 0;
-		String[] args = { "uc2k864-test03.int.kronos.com:21",
-				"superuser@eng.int.kronos.com", "kronites",
+		int base = 0;		
+		/*String[] args = { "uc2k864-test03.int.kronos.com:21:superuser@eng.int.kronos.com:kronites",
 				"/test/profiles/1/instance_profile_1_6.3.0.txt",
 				"C:/Kronos/jboss/JBossEULA.txt" };
+*/
 		String server = args[base++];
 		int port = 0;
 		String parts[] = server.split(":");
-		if (parts.length == 2) {
+		if (parts.length == 4) {
 			server = parts[0];
 			port = Integer.parseInt(parts[1]);
+			username = parts[2];
+			password = parts[3];
 		}
-		if (username == null) {
-			username = args[base++];
-			password = args[base++];
-		}
-
+		getCommand(args[base++]);
 		String remote = null;
-		if (args.length - base > 0) {
-			remote = args[base++];
-		}
-
 		String local = null;
-		if (args.length - base > 0) {
-			local = args[base++];
+		if (value.size()> 1) {
+			remote = value.get(0);
+			local = value.get(1);
 		}
 
 		final FTPClient ftp = new FTPClient();
@@ -186,7 +178,7 @@ public final class FTPClientExample {
 
 			ftp.setUseEPSVwithIPv4(useEpsvWithIPv4);
 
-			getCommand();
+			
 
 			if (storeFile) {
 				InputStream input;
@@ -301,64 +293,18 @@ public final class FTPClientExample {
 		System.exit(error ? 1 : 0);
 	} // end main
 
-	private void getCommand(String... command) throws UnknownHostException {
-		if (command.length != 0) {
-			if (command.equals("-s")) {
-				storeFile = true;
-			} else if (command.equals("-a")) {
-				localActive = true;
-			} else if (command.equals("-A")) {
-				username = "anonymous";
-				password = System.getProperty("user.name") + "@"
-						+ InetAddress.getLocalHost().getHostName();
-			} else if (command.equals("-b")) {
+	private void getCommand(String command) throws UnknownHostException {	
+			if (command.equals("install")) {
 				binaryTransfer = true;
-			} else if (command[0].equals("-c")) {
-				doCommand = command[1];
-
-			} else if (command.equals("-d")) {
+				storeFile = true;
+			} else if (command.equals("identify")) {
+				
+			} else if (command.contains("execute")) {
+				doCommand = command.replaceAll("execute", "");
+			} else if (command.equals("upgrade")) {
 				mlsd = true;
-
-			} else if (command.equals("-e")) {
-				useEpsvWithIPv4 = true;
-			} else if (command.equals("-f")) {
-				feat = true;
-
-			} else if (command.equals("-h")) {
-				hidden = true;
-			} else if (command[0].equals("-k")) {
-				keepAliveTimeout = Long.parseLong(command[1]);
-			} else if (command.equals("-l")) {
-				listFiles = true;
-			} else if (command.equals("-L")) {
-				lenient = true;
-			} else if (command.equals("-n")) {
-				listNames = true;
-			} else if (command[0].equals("-p")) {
-				protocol = command[1];
-			} else if (command.equals("-t")) {
-				mlst = true;
-			} else if (command[0].equals("-w")) {
-				controlKeepAliveReplyTimeout = Integer.parseInt(command[1]);
-			} else if (command[0].equals("-T")) {
-				trustmgr = command[1];
-			} else if (command[0].equals("-PrH")) {
-				proxyHost = command[1];
-				String parts[] = proxyHost.split(":");
-				if (parts.length == 2) {
-					proxyHost = parts[0];
-					proxyPort = Integer.parseInt(parts[1]);
-				}
-			} else if (command[0].equals("-PrU")) {
-				proxyUser = command[1];
-			} else if (command[0].equals("-PrP")) {
-				proxyPassword = command[1];
-			} else if (command.equals("-#")) {
-				printHash = true;
-			} else {
-
 			}
-		}
+		
 	}
 
 	private static CopyStreamListener createListener() {

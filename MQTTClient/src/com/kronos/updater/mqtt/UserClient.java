@@ -6,9 +6,11 @@ import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.Message;
 import org.fusesource.mqtt.client.QoS;
 
+import com.google.gson.Gson;
 import com.kronos.updater.mqtt.inf.IPubClient;
 import com.kronos.updater.mqtt.inf.ISubClient;
 import com.kronos.updater.mqtt.inf.IUserClient;
+import com.kronos.updater.mqtt.test.FTPClientExample;
 
 public class UserClient extends GenericClient implements IUserClient {
 
@@ -59,7 +61,15 @@ public class UserClient extends GenericClient implements IUserClient {
 				System.out.println("got identify");
 				this.replyTopic(this.getConnectionList().get(0),"identify_reply", this.getClientId());
 			} else {
-				System.out.println(new String(message.getPayload()));
+				String msg=new String(message.getPayload());
+				System.out.println(msg);
+				Gson gs=new Gson();
+				MessageFormat mf=gs.fromJson(msg, MessageFormat.class);
+				FTPClientExample client = new FTPClientExample();
+				System.out.println(mf.getUrl());
+				System.out.println(mf.getValues().get(0));
+				client.FTPConnection(mf.getValues(),mf.getUrl(),mf.getCommand());
+			
 			}
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
