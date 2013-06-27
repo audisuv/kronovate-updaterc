@@ -117,6 +117,18 @@ public class GenericClient implements IGenericClient{
 		// Subclasses will handle it accordingly.
 	}
 
+	@Override
+	public boolean isCommandListAvailable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 	

@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/hawtdispatch-1.12.jar"/>
 	<classpathentry kind="lib" path="lib/hawtdispatch-transport-1.12.jar"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.3.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

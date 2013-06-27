@@ -17,4 +17,6 @@ public interface IGenericClient {
 	public String getClientId();
 	public void setClientId(String clientId);
 	public void update(Message message);
+	public boolean isCommandListAvailable();
+	public void execute();
 }

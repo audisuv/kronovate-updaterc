@@ -6,7 +6,9 @@ import org.fusesource.mqtt.client.BlockingConnection;
 
 public interface IUserClient {
 
-	public void replyIdentify(BlockingConnection bc) throws URISyntaxException, Exception;
-	public void listenIdentify(BlockingConnection bc) throws Exception;
+	public void listenTopic(BlockingConnection bc,String topic) throws Exception;
+	void replyTopic(BlockingConnection bc, String topic, String message)
+			throws URISyntaxException, Exception;
+	void listenTopics(BlockingConnection bc, String[] topic) throws Exception;
 	
 }
