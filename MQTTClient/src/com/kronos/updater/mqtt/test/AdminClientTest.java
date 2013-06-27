@@ -38,9 +38,10 @@ public class AdminClientTest {
 		MessageFormat mf=new MessageFormat();
 		mf.setClient_Id("user_10.131.22.29");
 		mf.setCommand("download");
-		mf.setUrl("url");
+		mf.setUrl("uc2k864-test03.int.kronos.com:21:superuser@eng.int.kronos.com:kronites");
 		List<String> list=new ArrayList<String>();
-		list.add("value");
+		list.add("/test/profiles/1/instance_profile_1_6.3.0.txt");
+		list.add("instance_profile_1_6.3.0.txt" );
 		mf.setValues(list);
 		iAdmin.addToUserCommandsMap(mf.getClient_Id(), mf);
 	}

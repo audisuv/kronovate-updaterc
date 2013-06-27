@@ -290,7 +290,7 @@ public final class FTPClientExample {
 			}
 		}
 
-		System.exit(error ? 1 : 0);
+		//System.exit(error ? 1 : 0);
 	} // end main
 
 	private void getCommand(String command) throws UnknownHostException {	
