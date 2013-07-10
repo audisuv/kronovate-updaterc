@@ -83,7 +83,7 @@ public final class FTPClientExample {
 	int proxyPort;
 
 
-	public void FTPConnection( List<String> value, String... args) throws UnknownHostException {
+	public void connect( List<String> value, String... args) throws UnknownHostException {
 
 		int base = 0;		
 		/*String[] args = { "uc2k864-test03.int.kronos.com:21:superuser@eng.int.kronos.com:kronites",

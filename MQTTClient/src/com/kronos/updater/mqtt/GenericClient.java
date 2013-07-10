@@ -45,7 +45,7 @@ public class GenericClient implements IGenericClient{
 
 	public  int port = 1883;
 //	public  String ip = "10.131.21.242";
-	public  String ip = "10.131.22.29";
+	public  String ip = "10.131.18.203";
 	
 	/**
 	 * @param args
